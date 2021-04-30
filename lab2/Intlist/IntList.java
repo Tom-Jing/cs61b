@@ -82,15 +82,23 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        if (A == null){
+        if (A == null && B == null){
             return null;
         }
-        IntList A_clone = A;
-        while (A_clone.rest!= null){
-            A_clone = A_clone.rest;
+        else if (A == null && B != null){
+            return B;
         }
-        A_clone.rest = B;
-        return A;
+        else if (B == null && A != null){
+            return A;
+        } else {
+            IntList A_clone = A;
+            while (A_clone.rest!= null){
+                A_clone = A_clone.rest;
+            }
+            A_clone.rest = B;
+            return A;
+        }
+
     }
 
     /**
@@ -99,28 +107,36 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        if (A == null){
+        if (A == null && B == null){
             return null;
         }
-        IntList res = new IntList(A.first, null);
-        IntList res_clone = res;
-        IntList A_clone = A.rest;
-        while (A_clone.rest!= null){
+        else if (A == null && B != null){
+            return B;
+        }
+        else if (B == null && A != null){
+            return A;
+        } else {
+            IntList res = new IntList(A.first, null);
+            IntList res_clone = res;
+            IntList A_clone = A.rest;
+            while (A_clone.rest!= null){
+                res_clone.rest = new IntList(A_clone.first, null);
+                A_clone = A_clone.rest;
+                res_clone = res_clone.rest;
+            }
             res_clone.rest = new IntList(A_clone.first, null);
-            A_clone = A_clone.rest;
             res_clone = res_clone.rest;
-        }
-        res_clone.rest = new IntList(A_clone.first, null);
-        res_clone = res_clone.rest;
 
-        IntList B_clone = B;
-        while (B_clone.rest != null){
+            IntList B_clone = B;
+            while (B_clone.rest != null){
+                res_clone.rest = new IntList(B_clone.first, null);
+                B_clone = B_clone.rest;
+                res_clone = res_clone.rest;
+            }
             res_clone.rest = new IntList(B_clone.first, null);
-            B_clone = B_clone.rest;
-            res_clone = res_clone.rest;
+            return res;
         }
-        res_clone.rest = new IntList(B_clone.first, null);
-        return res;
+
     }
 
 
